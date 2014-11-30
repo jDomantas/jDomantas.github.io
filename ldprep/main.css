@@ -1,0 +1,10 @@
+body { 
+	margin: 0; 
+	overflow: hidden; 
+}
+
+div {
+    width: 640px;
+	height: 480px;
+    margin: 20px auto;
+}
