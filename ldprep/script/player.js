@@ -100,18 +100,18 @@ Player.prototype = {
 		if (this.left) frame += 12;
 		
 		game.screen.drawFrame(game.images.player, frame, 
-			((this.x * game.viewScale + 0.00000001) | 0) + game.offset.x - 2, 
-			((this.y * game.viewScale + 0.00000001) | 0) + game.offset.y);
+			Math.round(this.x * game.viewScale) + game.offset.x - 2, 
+			Math.round(this.y * game.viewScale) + game.offset.y);
 		
 		if (this.cursor.x != -1)
 			game.screen.drawFrame(game.images.cursor, (this.holds.solid ? 1 : 0),
-				((this.cursor.x * game.viewScale + 0.00000001) | 0) + game.offset.x, 
-				((this.cursor.y * game.viewScale + 0.00000001) | 0) + game.offset.y);
+				Math.round(this.cursor.x * game.viewScale) + game.offset.x, 
+				Math.round(this.cursor.y * game.viewScale) + game.offset.y);
 				
 		if (typeof this.holds.image !== 'undefined') {
 			game.screen.drawFrame(game.images.walls, this.holds.image,
-				(((this.x + this.width / 2 - 0.5 + 0.00000001) * game.viewScale) | 0) + game.offset.x, 
-				(((this.y - 1) * game.viewScale + 0.00000001) | 0) + game.offset.y);
+				Math.round((this.x + this.width / 2 - 0.5) * game.viewScale) + game.offset.x, 
+				Math.round((this.y - 1) * game.viewScale) + game.offset.y);
 		}
 		
 	}
