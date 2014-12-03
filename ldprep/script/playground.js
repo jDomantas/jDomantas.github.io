@@ -408,7 +408,9 @@ Playground.prototype = {
         });
 
         audio.addEventListener("error", function() {
-          loader.error(path);
+		  // fuck it, we will not have sound, but stuff will play at least
+          //loader.error(path);
+		  loader.ready(path);
         });
 
         audio.src = path;
@@ -466,6 +468,7 @@ Playground.prototype = {
 
   playSound: function(key, loop) {
     var sound = this.sounds[key];
+	if (!sound) return;
     sound.currentTime = 0;
     sound.loop = loop;
     sound.play();
@@ -474,6 +477,7 @@ Playground.prototype = {
 
   stopSound: function(sound) {
     if (typeof sound === "string") sound = this.sounds[sound];
+	if (!sound) return;
     sound.pause();
   }
 
