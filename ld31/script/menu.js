@@ -75,7 +75,7 @@ var endState = {
 		}
 		if (!this.explanations) {
 			this.explanations = Font.createPanel(app, 
-				'You lost, as you are trapped in a tiny room for the rest of your life. But maybe you have won, because you successfully completed all the tests. I guess we can make an optimist/pessimist test out of that. Either way, you completed the game.', 160, true);
+				'You lost, as you are trapped in a tiny room for the rest of your life. But maybe you have won, because you successfully completed all the tests. I guess we can make an optimist/pessimist test out of that. Either way, you have completed the game.', 160, true);
 		}
 	},
 	leave: function() {

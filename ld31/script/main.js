@@ -6,7 +6,7 @@ var app = playground({
 	scale: 16,
 	pixelScale: 2,
 	smoothing: false,
-	preventKeyboardDefault: false,
+	preventKeyboardDefault: true,
 
 	create: function() {
 		this.screen = cq(this.width / this.pixelScale, this.height / this.pixelScale);
