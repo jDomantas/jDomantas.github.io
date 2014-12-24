@@ -66,7 +66,7 @@ var textures = {
 			//  		
 		}
 		*/
-		dest.appendTo(document.body);
+		//dest.appendTo(document.body);
 
 		return dest.canvas;
 	},
