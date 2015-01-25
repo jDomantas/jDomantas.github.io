@@ -50,7 +50,8 @@
 					pos = 4 * (x + y * View.width);
 					type = dataArray[pos] * 65536 + dataArray[pos + 1] * 256 + dataArray[pos + 2];
 					//var type = map.getPixel(1 + this.x * (View.width + 1) + x, 1 + this.y * (View.height + 1) + y).toHex();
-					if (typeof colorToType[type] === 'undefined') console.log('Unknown color: ' + type);
+					if (typeof colorToType[type] === 'undefined') 
+						console.log('Unknown color: ' + type + ', at: ' + (pos / 4) + ', coords: (' + x + '; ' + y + ') at room (' + this.x + '; ' + this.y + ')');
 
 					type = colorToType[type];
 
@@ -95,6 +96,7 @@
 			if (this.x === 3 && this.y === 2) this.objects.push(new EntitySpell(57, 27, 1));
 			if (this.x === 3 && this.y === 3) this.objects.push(new EntitySpell(56, 32, 2));
 			if (this.x === 1 && this.y === 3) this.objects.push(new EntitySpell(22, 35, 3));
+			if (this.x === 1 && this.y === 2) this.objects.push(new EntitySpell(26, 21, 3));
 			if (this.x === 1 && this.y === 1) this.doors[0].inputs = [0, 1];
 		},
 
