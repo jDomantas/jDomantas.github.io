@@ -127,7 +127,7 @@ EntityWizardClone.prototype.update = function() {
 
 	this.queuePosition++;
 	if (this.queuePosition >= this.inputQueue.length)
-		this.kill();
+		this.alive = false;
 };
 
 EntityWizardClone.prototype.kill = function() {
