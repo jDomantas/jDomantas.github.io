@@ -3,7 +3,7 @@ var WizardGame = playground({
 	container: document.getElementById('container'),
 	width: 960,
 	height: 640,
-	preventKeyboardDefault: false,
+	preventKeyboardDefault: true,
 	smoothing: false,
 
 	create: function() {

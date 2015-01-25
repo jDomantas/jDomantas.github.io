@@ -57,6 +57,7 @@ EntityWizard.prototype.update = function() {
 		input.right = 
 		input.jump = false;
 		input.spells = [];
+		this.nextJump = false;
 	}
 	else
 		this.timeDead = 0;
@@ -208,7 +209,7 @@ EntityWizard.prototype.activateReflection = function() {
 
 EntityWizard.prototype.activateZhonya = function() {
 	if (!this.onGround || this.usingLadder) return false;
-	this.zhonyaTimer = 90;
+	this.zhonyaTimer = 120;
 	return true;
 };
 
@@ -261,7 +262,7 @@ EntityWizard.prototype.input = function() {
 
 EntityWizard.prototype.render = function(layer, dx, dy) {
 
-	if(!this.alive) {
+	if(this.timeDead > 0) {
 
 		var x = this.x * WizardView.tileScale - dx;
 		var y = this.y * WizardView.tileScale - dy;

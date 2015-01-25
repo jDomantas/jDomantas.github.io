@@ -2,17 +2,28 @@
 <html>
 
 	<head>
-		<title>Your game name</title>
+		<title>A lone wizard</title>
 		
 		<meta charset="utf-8">
 
-		<meta property="og:title" content="Your game name"> 
-		<meta property="og:image" content="thumbnail.png"> 
-		<meta property="og:description" content="description of your game">
-		<meta name="description" content="description of your game">
+		<meta property="og:title" content="A lone wizard"> 
 
 		<style>
-			@import url("main.css");
+			body { 
+				margin: 0; 
+				overflow: hidden; 
+			}
+
+			div {
+				position: relative;
+				width: 960px;
+				height: 640px;
+				margin: 20px auto;
+			}
+
+			p {
+				text-align: center;
+			}
 		</style>
 
 	</head>
@@ -20,6 +31,7 @@
 	<body>
 
 		<div id="container"></div>
+		<p>Controls: Arrow keys and Z X C V</p>
 
 		<script src="script/entities/base.js"></script>
 		<script src="script/entities/spell.js"></script>

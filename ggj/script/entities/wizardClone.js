@@ -11,6 +11,8 @@ function EntityWizardClone(data, inputs) {
 
 	for (var i = 0; i < this.spells.length; i++)
 		this.spells[i].has = true;
+
+	this.aliveOther = true;
 }
 
 EntityWizardClone.prototype = Object.create(EntityWizard.prototype);
@@ -22,7 +24,7 @@ EntityWizardClone.prototype.update = function() {
 	for (var i = 0; i < this.spells.length; i++)
 		this.spells[i].scheduled = this.inputQueue[this.queuePosition].spells[i];
 
-	if (!this.alive) {
+	if (!this.aliveOther) {
 		this.timeDead++;
 		input.up = 
 		input.down = 
@@ -30,11 +32,16 @@ EntityWizardClone.prototype.update = function() {
 		input.right = 
 		input.jump = false;
 		input.spells = [];
+		for (var i = 0; i < this.spells.length; i++)
+			this.spells[i].scheduled = false;
 	}
 	else
 		this.timeDead = 0;
+
+	if (this.timeDead > 120)
+		this.alive = false;
 	
-	if (!this.alive)
+	if (!this.aliveOther)
 		this.timeDead++;
 	else
 		this.timeDead = 0;
@@ -122,3 +129,7 @@ EntityWizardClone.prototype.update = function() {
 	if (this.queuePosition >= this.inputQueue.length)
 		this.kill();
 };
+
+EntityWizardClone.prototype.kill = function() {
+	this.aliveOther = false;
+}
