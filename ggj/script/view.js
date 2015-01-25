@@ -96,6 +96,9 @@
 			if (this.x === 3 && this.y === 2) this.objects.push(new EntitySpell(57, 27, 1));
 			if (this.x === 3 && this.y === 3) this.objects.push(new EntitySpell(56, 32, 2));
 			if (this.x === 1 && this.y === 3) this.objects.push(new EntitySpell(22, 35, 3));
+			if (this.x === 1 && this.y === 2) this.objects.push(new EntitySpell(26, 21, 0));
+			if (this.x === 1 && this.y === 2) this.objects.push(new EntitySpell(26, 21, 1));
+			if (this.x === 1 && this.y === 2) this.objects.push(new EntitySpell(26, 21, 2));
 			if (this.x === 1 && this.y === 2) this.objects.push(new EntitySpell(26, 21, 3));
 			if (this.x === 1 && this.y === 1) this.doors[0].inputs = [0, 1];
 		},
