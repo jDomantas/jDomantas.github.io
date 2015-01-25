@@ -9,8 +9,7 @@ var WizardGame = playground({
 	create: function() {
 		
 		this.loadImages('deth', 'map', 'tileset', 'characters', 'spells', 'timer', 'player', 'playerflip', 'skillball', 'enemy', 'enemy2', 'title');
-		this.loadSounds('firblast', 'jump', 'rockmode', 'timerewind');
-
+		
 		this.screen = cq(this.width / 2, this.height / 2);
 
 	},
