@@ -1,0 +1,190 @@
+<html>
+	<head>
+		<title>Edge preview</title>
+		<link rel="stylesheet" href="preview/common.css">
+		<link rel="stylesheet" href="preview/dialog.css">
+		<script type="text/javascript" src="preview/closurec.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		
+		<style>
+			body {
+				font-size: small;
+				font-family: sans-serif;
+			}
+			.goog-slider-horizontal {
+				border: solid 1px #CCCCCC;
+				background-color: white;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.goog-slider-thumb {
+				position: absolute;
+				background-color: #3399CC;
+				overflow: hidden;
+				width: 10px;
+				height: 100%;
+				top: 0;
+			}
+	
+			p { margin: 2px; }
+		
+			#map {
+				border: 1px solid black;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<script>
+		goog.require('goog.ui.Dialog');
+		goog.require('goog.ui.Slider');
+		goog.require('goog.ui.Component');
+		var map, sliderTimer, layer, slider;
+
+		function initializeMap() {
+
+			var mapTypeOptions = {
+				maxZoom: 19,
+				minZoom: 0,
+			};
+
+			var mapType = new google.maps.ImageMapType(mapTypeOptions);
+
+			map = new google.maps.Map(document.getElementById('map'), {
+				center: new google.maps.LatLng(54.67777, 25.2916666),
+				zoom: 11,
+			});
+
+			layer = new google.maps.FusionTablesLayer({
+				styles: [
+					{
+						where: "Removed = 1 or RealDistance < 0",
+						polylineOptions: {
+							strokeColor: "#000000",
+							strokeWeight: "1"
+						}
+					},
+					{
+						where: "RealDistance <= 2000 AND RealDistance > 1000",
+						polylineOptions: {
+							strokeColor: "#7F7FFF",
+							strokeWeight: "2"  
+						}
+					},
+					{
+						where: "RealDistance <= 1000 AND RealDistance > 500",
+						polylineOptions: {
+							strokeColor: "#00FFFF",
+							strokeWeight: "2"  
+						}
+					},
+					{
+						where: "RealDistance <= 500",
+						polylineOptions: {
+							strokeColor: "#00FF00",
+							strokeWeight: "2"  
+						}
+					}
+				],
+				query: {
+					select: 'StraightPath',
+					from: '1jAvR7hjTcdKeywnMHvdvx893PEf06ZRtpE9ajGUq'
+						//'1-1UoOEdCP4iopmJjO_72-UPYNAXw-o0yUJB9dG0m'
+				}
+			});
+			layer.setMap(map);
+			
+			google.maps.event.addListener(layer, 'click', displayData);
+			initializeSlider();
+		}
+
+		// When a user clicks on a feature on the map, intercept the
+		// click event and display the data in a modal dialog box.
+		function displayData(mouseEvent) {
+			console.log(mouseEvent);
+			var dialog = new goog.ui.Dialog();
+			dialog.setTitle(mouseEvent.row['StraightDistance'].value);
+			dialog.setContent(formatTableRowAsHtml(mouseEvent.row));
+			dialog.setButtonSet(goog.ui.Dialog.ButtonSet.OK);
+			//dialog.setVisible(true);
+		}
+
+		// Produce some nicely formatted HTML using the raw row data exposed as
+		// part of the feature click event.
+		function formatTableRowAsHtml(row) {
+			var parts = [
+				'<center>Start:', row['StopID'].value,
+				'<br>End: ', row['NeighborID'].value,
+				'<br>Real distance: ', row['RealDistance'].value,
+				'</center>'
+			];
+			return parts.join('');
+		}
+
+		// Create a Google Closure slider bar which can be used to select the
+		// distance by which to filter the Fusion Tables data.
+		function initializeSlider() {
+			var sliderElement = document.getElementById('slider');
+			slider = new goog.ui.Slider;
+			slider.decorate(sliderElement);
+			slider.addEventListener(goog.ui.Component.EventType.CHANGE, function() {
+				// Avoid updating the map too often by ignoring slider value changes
+				// that occur within 200mS of eachother.
+				if (sliderTimer) window.clearTimeout(sliderTimer);
+				sliderTimer = window.setTimeout(updateMap, 200);
+				//document.getElementById("slider-value").innerHTML = sliderValueToKm(slider.getValue()) + " km";
+			});
+			slider.setValue(10);
+		}
+
+		// Convert a slider value (0 - 100%) to an distance between 0 and 3000.
+		function sliderValueToKm(value) {
+			return (value / 25.0).toFixed(2)
+			//return Math.round(value * 1.609344);
+		}
+
+		// Update the query used to filter Fusion Tables data using the
+		// current value of the slider.
+		function updateMap() {
+			var distance = sliderValueToKm(slider.getValue());
+
+			var layerOptions = {
+				styles: [
+					
+					{
+						where: 'Distance <= 700',
+						polylineOptions: {
+							strokeColor: "#ff0000",
+							strokeWeight: "2"  
+						}
+					},
+					{
+						where: 'Distance > 700',
+						polylineOptions: {
+							strokeColor: "#00ff00",
+							strokeWeight: "2"  
+						}
+					}
+				],
+				query: {
+					select: 'PathStraight',
+					from: '1-1UoOEdCP4iopmJjO_72-UPYNAXw-o0yUJB9dG0m'
+					//where: '[DistanceStraight] > 500'
+				}
+			} 
+		
+			//layer.setOptions(layerOptions);
+		}
+	</script>
+
+	<body onLoad="initializeMap()">
+		<div id="options" style="display: block;">
+			<div id="slider" class="goog-slider" style="width: 480px; height: 15px; float: left">
+				<div class="goog-slider-thumb"></div>
+			</div>
+			<div id="slider-value" style="float: left; margin-left: 5px;"></div>
+		</div>
+		<br clear="all"/>
+		<div id="map" style="width: 900px; height: 620px; margin-top: 10px"></div>
+	</body>
+</html>
