@@ -58,28 +58,38 @@
 			layer = new google.maps.FusionTablesLayer({
 				styles: [
 					{
-						where: "Removed = 1 or RealDistance < 0",
+						//where: "Removed = 1 OR RealDistance < 0",
+						where: "Removed = 1 AND RealDistance > 0",
 						polylineOptions: {
 							strokeColor: "#000000",
 							strokeWeight: "1"
 						}
 					},
 					{
-						where: "RealDistance <= 2000 AND RealDistance > 1000",
+						//where: "RealDistance > 2000 AND Removed = 0",
+						where: "RealDistance < 0",
+						polylineOptions: {
+							strokeColor: "#FF0000",
+							strokeWeight: "1"  
+						}
+					},
+					{
+						//where: "RealDistance <= 2000 AND RealDistance > 1000 AND Removed = 0",
+						where: "RealDistance > 1000 AND Removed = 0",
 						polylineOptions: {
 							strokeColor: "#7F7FFF",
 							strokeWeight: "2"  
 						}
 					},
 					{
-						where: "RealDistance <= 1000 AND RealDistance > 500",
+						where: "RealDistance <= 1000 AND RealDistance > 500 AND Removed = 0",
 						polylineOptions: {
 							strokeColor: "#00FFFF",
 							strokeWeight: "2"  
 						}
 					},
 					{
-						where: "RealDistance <= 500",
+						where: "RealDistance <= 500 AND RealDistance > 0 AND Removed = 0",
 						polylineOptions: {
 							strokeColor: "#00FF00",
 							strokeWeight: "2"  
@@ -101,7 +111,7 @@
 		// When a user clicks on a feature on the map, intercept the
 		// click event and display the data in a modal dialog box.
 		function displayData(mouseEvent) {
-			console.log(mouseEvent);
+			//console.log(mouseEvent);
 			var dialog = new goog.ui.Dialog();
 			dialog.setTitle(mouseEvent.row['StraightDistance'].value);
 			dialog.setContent(formatTableRowAsHtml(mouseEvent.row));
