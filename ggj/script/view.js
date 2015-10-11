@@ -29,6 +29,7 @@
 		0x880015: { tex: [2], collision: 1 }, // wall top
 		0x0000ff: { tex: [5, 0], collision: 1, special: 'button' }, // button
 		0x00ff00: { tex: [6, 0], collision: 1, special: 'door' }, // door
+		0x01ff00: { tex: [6, 0], collision: 1, special: 'door' }, // door
 		0xff00ff: { tex: [0], collision: 0, special: 'enemy' }, // door
 		0x7f007f: { tex: [0], collision: 0, special: 'enemy2' } // door
 	};
