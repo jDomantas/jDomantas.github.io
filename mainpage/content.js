@@ -9,7 +9,7 @@ window.jDomantasHomeTiles = [
 	***********/
 	{
 		//text: "Stratego",
-		link: "https://strategojdomantas.azurewebsites.net",
+		link: "http://strategojdomantas.azurewebsites.net",
 		image: "stratego.png",
 		dark: true
 	},

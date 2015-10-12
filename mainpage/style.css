@@ -21,6 +21,7 @@ body {
 	transition: all 0.3s;
 	transition-timing-function: ease;
 	background-size:100%;
+	cursor: pointer;
 }
 
 .wide {
@@ -42,6 +43,8 @@ body {
 
 div p {
 	margin: 0;
+	border-style:solid; 
+	border-color:#FF0000;
 }
 
 html {
